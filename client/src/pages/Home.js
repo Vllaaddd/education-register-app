@@ -1,7 +1,12 @@
+import HomePage from "../components/HomePage/HomePage";
+import Center from "../components/Center/Center"
+
 export default function Home(){
     return(
-        <div>
-            <h1>Home</h1>
-        </div>
+        <>
+            <Center>
+                <HomePage />
+            </Center>
+        </>
     )
 }

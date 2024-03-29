@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #eee;
 }
 
 code {
@@ -23,4 +24,8 @@ h1, h2, h3, h4, h5, h6, a, ul, li, p, button{
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+*{
+  box-sizing: border-box;
 }

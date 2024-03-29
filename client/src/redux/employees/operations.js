@@ -1,64 +1,56 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import EmployeeModel from '../../models/Employee';
+import axios from 'axios'
 
 export const importEmployees = createAsyncThunk('employees/importEmployees', async (sheetsId, thunkAPI) => {
     try {
-        
-        const sheetTitle = 'Sheet1';
-        const sheetRange = 'A2:N1000';
-        const fullUrl = 'https://docs.google.com/spreadsheets/d/' + sheetsId + '/gviz/tq?sheet=' + sheetTitle + '&range=' + sheetRange;
-        
-        const response = await fetch(fullUrl);
-        const rep = await response.text();
-        const data = JSON.parse(rep.substring(47).slice(0, -2));
-        
-        const employees = [];
-        const leaders = {};
-        
-        
-        for (const employee of data.table.rows) {
-            const fullName = employee.c[0].v;
-            const status = employee.c[1].v;
-            const startOfWork = employee.c[2].v;
-            const profession = employee.c[3].v;
-            const schedule = employee.c[7].v;
-            const email = employee.c[12].v;
-            const leader = employee.c[13].v;
-                
-            console.log('before creating');
-            try {
-                const savedEmployee = await EmployeeModel.create({
-                    fullName, 
-                    email,
-                    status, 
-                    startOfWork, 
-                    profession, 
-                    schedule, 
-                    leader,
-                })   
-                if (!leaders[leader]) {
-                    leaders[leader] = [];
-                }
-                leaders[leader].push(savedEmployee);
-            
-                employees.push(savedEmployee);
-            } catch (error) {
-                console.log(error);
-            }
+        const res = await axios.get(`http://localhost:5000/importEmployees/${sheetsId}`)
+        return res.data
+    } catch (error) {
+        thunkAPI.rejectWithValue(error.message);
+    }
+})
 
-            console.log('after creating');
-        }
-        console.log('After for');
+export const getAllEmployees = createAsyncThunk('employees/getAllEmployees', async(_, thunkAPI) => {
+    try {
+        const res = await axios.get('http://localhost:5000/employees')
+        return res.data
+    } catch (error) {
+        thunkAPI.rejectWithValue(error.message);
+    }
+})
 
-        employees.forEach(async (employee) => {
-            const name = employee.fullName;
-            const subordinates = leaders[name] || [];
-            
-            await EmployeeModel.findByIdAndUpdate(employee._id, { employees: subordinates });
-        });
+export const updateEmployee = createAsyncThunk('employees/updateEmployee', async(data, thunkAPI) => {
+    const { employeeId, updateData } = data
+    try {
+        const res = await axios.put(`http://localhost:5000/employees/${employeeId}`, updateData)
+        return res.data
+    } catch (error) {
+        thunkAPI.rejectWithValue(error.message);
+    }
+})
 
-        console.log('before return');
-        return employees;
+export const deleteOneEmployee = createAsyncThunk('employees/deleteOneEmployee', async(employeeId, thunkAPI) => {
+    try {
+        const res = await axios.delete(`http://localhost:5000/employeeDelete/${employeeId}`)
+        return res.data
+    } catch (error) {
+        thunkAPI.rejectWithValue(error.message);
+    }
+})
+
+export const deleteAll = createAsyncThunk('employees/deleteAll', async(_, thunkAPI) => {
+    try {
+        const res = await axios.delete('http://localhost:5000/employees')
+        return res.data
+    } catch (error) {
+        thunkAPI.rejectWithValue(error.message);
+    }
+})
+
+export const clearAllEducations = createAsyncThunk('employees/clearEducations', async(_, thunkAPI) => {
+    try {
+        const res = await axios.delete('http://localhost:5000/clearAllEducations')
+        return res.data
     } catch (error) {
         thunkAPI.rejectWithValue(error.message);
     }

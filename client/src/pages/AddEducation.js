@@ -1,5 +1,12 @@
+import Center from "../components/Center/Center";
+import EducationForm from "../components/EducationForm/EducationForm";
+
 export default function AddEducation(){
     return(
-        <h1>Add Education</h1>
+        <>
+            <Center>
+                <EducationForm />
+            </Center>
+        </>
     )
 }

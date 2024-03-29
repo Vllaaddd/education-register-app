@@ -31,10 +31,10 @@ export default function ImportForm(){
 
     return(
         <div className="center">
-            <form onSubmit={handleFormSubmit} className={css.styledForm}>
+            <form onSubmit={handleFormSubmit} className={css.form}>
                 <h2 className={css.title}>Імпортувати працівників</h2>
-                <input className={css.styledInput} placeholder="Посилання на гугл таблицю" value={sheetsId || ''} onChange={ev => setSheetsId(ev.target.value)} required />
-                <button type="submit" className={css.styledButton}>Імпортувати</button>
+                <input className={css.input} placeholder="Посилання на гугл таблицю" value={sheetsId || ''} onChange={ev => setSheetsId(ev.target.value)} required />
+                <button type="submit" className={css.button}>Імпортувати</button>
             </form>
         </div>
     )

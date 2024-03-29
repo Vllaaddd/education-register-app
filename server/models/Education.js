@@ -1,7 +1,7 @@
 import mongoose, {Schema, model} from "mongoose";
 
 const EducationModel = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true,
     },
@@ -21,10 +21,17 @@ const EducationModel = new mongoose.Schema({
         type: String,
         required: true,
     },
+    materials: {
+        type: String,
+        default: "",
+    },
     employees:{
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }],
-        default: [],
-    } 
+        type: [{
+            employee: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
+            isCompleted: { type: Boolean, default: false }
+        }],
+        default: []
+    }
 }, {
     timestamps: true,
 })

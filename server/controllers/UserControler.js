@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import EmployeeModel from '../models/Employee.js';
-import { createTokens, validateToken } from "../JWT.js";
+import jwt from 'jsonwebtoken';
 
 export const login = async (req, res) => {
     try {
@@ -15,19 +15,20 @@ export const login = async (req, res) => {
         }
 
         const dbPassword = user.password;
-        bcrypt.compare(password, dbPassword).then((match) => {
-            if(!match){
-                res.status(400).json({error: "Wrong username or password!"})
-            }else{
+        const validPassword = bcrypt.compareSync(password, dbPassword)
+        if(!validPassword){
+            return res.status(400).json({error: "Невірний пароль або email"})
+        }
 
-                const accessToken = createTokens(user)
+        const token = jwt.sign({ id: user._id }, 'secret123')
+        const { password: hashedPassword, ...rest } = user._doc;
 
-                res.cookie("access-token", accessToken, {
-                    maxAge: 60*60*24*30*1000
-                })
+        const oneMonthInMilliseconds = 1000 * 60 * 60 * 24 * 30;
+        const expirationDate = new Date(Date.now() + oneMonthInMilliseconds);
 
-                res.json("Logged in")
-            }
+        res.cookie('access_token', token, { httpOnly: true, expires: expirationDate }).status(200).json({
+            user: rest,
+            token,
         })
 
     } catch (error) {
@@ -38,6 +39,6 @@ export const login = async (req, res) => {
     }
 }
 
-export const profile = async (req, res) => {
-    res.json("profile")
-}
+export const logout = (req, res) => {
+    res.clearCookie('access_token').status(200).json('Вихід успішний');
+  };

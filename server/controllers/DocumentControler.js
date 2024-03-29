@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       const content = fs.readFileSync(templatePath, 'binary');
   
       const educationData = {
-        name: req.body.name,
+        title: req.body.title,
         instructor: req.body.instructor,
         employees: req.body.employees,
         date: req.body.date,

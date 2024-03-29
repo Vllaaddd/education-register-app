@@ -1,5 +1,11 @@
+import { useLoaderData } from "react-router-dom"
+import Education from "../components/DetailedEducation/Education"
+
 export default function EducationPage(){
+
+    const data = useLoaderData()
+
     return(
-        <h1>Education Page</h1>
+        <Education data={data} />
     )
 }

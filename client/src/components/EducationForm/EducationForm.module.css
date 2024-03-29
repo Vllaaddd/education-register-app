@@ -1,0 +1,207 @@
+.title{
+    font-family: Nunito, sans-serif;
+    margin: 1.5rem 0 2rem 0;
+    text-align: center;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+    padding-bottom: 50px;
+    border-radius: 12px;
+    box-shadow: rgba(50, 50, 93, 0,25) 0px 13px 27px -5px,
+     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+     background-color: #fff;
+}
+
+.label{
+    font-family: Nunito, sans-serif;
+    padding-left: 16px;
+    opacity: 0.75;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.input{
+    font-family: Nunito, sans-serif;
+    display: flex;
+    border-radius: 50px;
+    border-style: none;
+    outline: none;
+    margin-top: 8px;
+    padding: 12px 24px;
+    width: 370px;
+    background-color: #EAEEED;
+    margin-bottom: 30px;
+}
+
+.input:focus{
+    opacity: 0.7;
+}
+
+.textarea{
+    font-family: Nunito, sans-serif;
+    display: flex;
+    border-radius: 50px;
+    border-style: none;
+    outline: none;
+    margin-top: 8px;
+    padding: 12px 24px;
+    max-width: 370px;
+    min-width: 370px;
+    min-height: 50px;
+    background-color: #EAEEED;
+    margin-bottom: 30px;
+}
+
+.textarea:focus{
+    opacity: 0.7;
+}
+
+.button{
+    width: 100%;
+    background: #EAEEED;
+    height: 65px;
+    padding: 0 20px;
+    border-radius: 7px;
+    font-size: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.button svg{
+    width: 20px;
+    transition: transform 0.3s linear;
+}
+
+.button.isOpen svg{
+    transform: rotate(180deg);
+}
+
+.content{
+    display: none;
+    background: #fff;
+    margin-top: 15px;
+    padding: 50px 20px 20px;
+    border-radius: 7px;
+    max-height: 80vh;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow-y: auto;
+    border: 1px solid black;
+}
+
+.content::-webkit-scrollbar{
+    padding-top:5px;
+    width: 7px;
+}
+
+.content::-webkit-scrollbar-track{
+    background: #fff;
+    border-radius: 25px;
+}
+
+.content::-webkit-scrollbar-thumb{
+    background: #ccc;
+    border-radius: 25px;
+}
+
+.content.isOpen{
+    display: block;
+}
+
+.content button:nth-child(1){
+    width: 30px;
+    height: 30px;
+    outline: none;
+    background: none;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.searchWrapper{
+    position: relative;
+}
+
+.searchWrapper input{
+    height: 52px;
+    width: 100%;
+    font-size: 17px;
+    padding: 0 15px 0 43px;
+    outline: none;
+    border: 1px solid #b3b3b3;
+    border-radius: 5px;
+}
+
+.searchWrapper svg{
+    position: absolute;
+    top: 16px;
+    left: 15px;
+    width: 20px;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.chooseButton{
+    font-family: Nunito, sans-serif;
+    padding: 12px 48px;
+    border-radius: 50px;
+    color: #fff;
+    margin-top: 1rem;
+    cursor: pointer;
+    outline: none;
+    border-width: 0;
+    background-color: #1A1B27;
+    font-weight: 600;
+    width: 100%;
+}
+
+.chooseButton:hover{
+    opacity: 0.8;
+}
+
+.employeesList{
+    margin-top: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.employeesList::-webkit-scrollbar{
+    width: 7px;
+}
+
+.employeesList::-webkit-scrollbar-track{
+    background: #fff;
+    border-radius: 25px;
+}
+
+.employeesList::-webkit-scrollbar-thumb{
+    background: #ccc;
+    border-radius: 25px;
+}
+
+.employeesList li{
+    height: 50px;
+    border-radius: 5px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    padding: 0 13px;
+    font-size: 21px;
+    gap: 5px;
+}
+
+.employeesList li:hover{
+    background: #fff;
+}
