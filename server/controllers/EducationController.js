@@ -4,7 +4,7 @@ import Employee from '../models/Employee.js';
 
 export const addOneEducation = async (req, res) => {
   try {
-    const doc = await EducationModel.create({
+    const education = await EducationModel.create({
       title: req.body.title,
       startTime: req.body.startTime,
       endTime: req.body.endTime,
@@ -18,12 +18,12 @@ export const addOneEducation = async (req, res) => {
       const res = await axios.get(`http://localhost:5000/employees/${employeeId}`);
       const employee = res.data;
 
-      employee.allEducations.push(doc._id);
+      employee.allEducations.push(education._id);
 
       axios.put(`http://localhost:5000/employees/${employeeId}`, employee);
     });
 
-    res.json({ education: doc });
+    res.json(education);
   } catch (error) {
     console.log(error);
     res.status(500).json({

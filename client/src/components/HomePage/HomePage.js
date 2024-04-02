@@ -48,6 +48,9 @@ export default function HomePage(){
 
     return(
         <>
+            {!isLoggedIn && (
+              <h2 className={css.title}>Реєстр навчань</h2>
+            )}
             {isLoggedIn && !isAdmin && (
                 <>
                     <h2 className={css.title}>Мої навчання</h2>

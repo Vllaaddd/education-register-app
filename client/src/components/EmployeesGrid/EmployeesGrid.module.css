@@ -20,7 +20,7 @@
     padding: 8px;
 }
 
-.table tr:nth-child(even){
+.table tr:nth-child(odd){
     background-color: #fff;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .table thead{
-    background-color: #fff;
+    background-color: #eee;
 }
 
 .link{

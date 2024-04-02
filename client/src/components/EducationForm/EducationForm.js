@@ -43,7 +43,6 @@ export default function EducationForm(){
             employees: selectedEmployees,
         }))
         form.reset()
-        window.location.reload();
         navigate('/educations')
     }
 
