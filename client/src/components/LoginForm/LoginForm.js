@@ -28,10 +28,10 @@ export default function LoginForm(){
                     <h2 className={css.title}>Вхід</h2>
                     
                     <label className={css.label}>Email
-                        <input name="email" className={css.input} type="email" />
+                        <input name="email" className={css.input} required={true} type="email" />
                     </label>
                     <label className={css.label}>Password
-                        <input name="password" className={css.input} type="password" />
+                        <input name="password" className={css.input} required={true} type="password" />
                     </label>
                     
                     <button className={css.button} type="submit">Увійти</button>

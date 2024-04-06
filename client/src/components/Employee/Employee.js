@@ -5,56 +5,103 @@ import axios from "axios"
 export default function Employee({data}){
 
     const [educations, setEducations] = useState([])
+    const [completedEducations, setCompletedEducations] = useState([])
+    const [unCompletedEducations, setUnCompletedEducations] = useState([])
 
-    const { fullName, allEducations } = data
-    
+    const { fullName, allEducations, _id } = data
+
     useEffect(() => {
-        if (Array.isArray(allEducations)) {
-          allEducations.map(educationId => {
-            try {
-              axios.get(`http://localhost:5000/education/${educationId}`).then(res => {
-                const education = res.data;
-                if (education) {
-                  setEducations((prevEducations) => [...prevEducations, education]);
-                } else {
-                  console.log('Немає навчання з таким id');
-                }
-              }).catch(err => {
-                console.log('Навчання не знайдено');
-              });
-            } catch (error) {
-              console.log('Навчання не знайдено');
+      if (Array.isArray(allEducations)) {
+        Promise.all(
+          allEducations.map((educationId) =>
+            axios
+              .get(`http://localhost:5000/education/${educationId}`)
+              .then((res) => res.data)
+              .catch((err) => {
+                console.log("Навчання не знайдено");
+                return null;
+              })
+          )
+        ).then((educations) => {
+          const filteredEducations = educations.filter(
+            (education) => education !== null
+          );
+          setEducations(filteredEducations);
+          const completed = [];
+          const uncompleted = [];
+          filteredEducations.forEach((education) => {
+            const isCompleted = education.employees.some(
+              (employee) => employee.employee === _id && employee.isCompleted === true
+            );
+            if (isCompleted) {
+              completed.push(education);
+            } else {
+              uncompleted.push(education);
             }
           });
-        }
-      }, [allEducations]);
+          setCompletedEducations(completed);
+          setUnCompletedEducations(uncompleted);
+        });
+      }
+    }, [allEducations, _id]);
 
     return(
         <div className={css.wrapper}>
             <h2 className={css.title}>{fullName}</h2>
             {educations.length === 0 && (
-                <p>Немає пройдених навчань</p>
+                <p>Немає навчань</p>
             )}
-            {educations && educations.length > 0 && (
+            {unCompletedEducations && unCompletedEducations.length !== 0 && (
+                <>
+                    <p>Активні навчання: </p>
+                    <table className={css.table}>
+                      <thead>
+                        <tr>
+                          <th>Назва навчання</th>
+                          <th>Хто проводив</th>
+                          <th>Дата</th>
+                          <th>Початок</th>
+                          <th>Кінець</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {unCompletedEducations.map(education => (
+                            <tr key={education._id}>
+                              <td>{education.title}</td>
+                              <td>{education.instructor}</td>
+                              <td>{education.date}</td>
+                              <td>{education.startTime}</td>
+                              <td>{education.endTime}</td>
+                            </tr>
+                        ))}
+                      </tbody>
+                </table>
+                </>
+            )}
+            {completedEducations && completedEducations.length !== 0 && (
                 <>
                     <p>Пройдені навчання: </p>
                     <table className={css.table}>
+                      <thead>
                         <tr>
-                            <th>Назва навчання</th>
-                            <th>Хто проводив</th>
-                            <th>Дата</th>
-                            <th>Початок</th>
-                            <th>Кінець</th>
+                          <th>Назва навчання</th>
+                          <th>Хто проводив</th>
+                          <th>Дата</th>
+                          <th>Початок</th>
+                          <th>Кінець</th>
                         </tr>
-                        {educations.map(education => (
+                      </thead>
+                      <tbody>
+                        {completedEducations.map(education => (
                             <tr key={education._id}>
-                            <td>{education.title}</td>
-                            <td>{education.instructor}</td>
-                            <td>{education.date}</td>
-                            <td>{education.startTime}</td>
-                            <td>{education.endTime}</td>
+                              <td>{education.title}</td>
+                              <td>{education.instructor}</td>
+                              <td>{education.date}</td>
+                              <td>{education.startTime}</td>
+                              <td>{education.endTime}</td>
                             </tr>
                         ))}
+                      </tbody>
                 </table>
                 </>
             )}

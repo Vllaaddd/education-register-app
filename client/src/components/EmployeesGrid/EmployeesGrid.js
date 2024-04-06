@@ -35,7 +35,7 @@ export default function EmployeesGrid({employees}){
                             <th>Професія</th>
                             <th>Статус</th>
                             <th>Графік роботи</th>
-                            <th>Кількість пройдених навчань</th>
+                            <th>Кількість навчань</th>
                             <th colSpan="3">Детальна інформація</th>
                         </tr>
                     </thead>

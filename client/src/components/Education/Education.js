@@ -5,12 +5,11 @@ export default function Education({_id, title, date, startTime, endTime, employe
     return(
         <>
             <div className={css.wrapper}>
-                <p>{title}</p>
-                <p>{date}</p>
-                <p>{startTime}</p>
-                <p>{endTime}</p>
+                <p>Назва: {title}</p>
+                <p>Дата: {date}</p>
+                <p>Початок: {startTime}</p>
+                <p>Кінець: {endTime}</p>
                 <p>Проводив навчання: {instructor}</p>
-                <p>Пройшло {employees?.length} працівників</p>
                 <hr className={css.line} />
                 <Link className={css.link} to={`/educations/${_id}`}>
                     <span>Переглянути більше</span>

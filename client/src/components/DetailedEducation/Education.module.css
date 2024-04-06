@@ -44,3 +44,20 @@
     justify-content: center;
     gap: 5px;
 }
+
+.table{
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.table td,
+.table th{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.table tr:nth-child(even){
+    background-color: #fff;
+}
