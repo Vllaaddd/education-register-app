@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectIsAdmin } from "../../redux/auth/selectors"
 import { deleteAll } from "../../redux/educations/operations"
 import { clearAllEducations } from "../../redux/employees/operations"
+import Swal from 'sweetalert2'
 
 export default function EducationsGrid({educations}){
 
@@ -11,8 +12,26 @@ export default function EducationsGrid({educations}){
     const dispatch = useDispatch()
 
     const handleButtonClick = () => {
-        dispatch(deleteAll())
-        dispatch(clearAllEducations())
+        Swal.fire({
+            title: "Ви впевнені?",
+            text: "Ви точно хочете видалити навчання?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#02a815",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Скасувати",
+            confirmButtonText: "Так, видалити!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteAll())
+                dispatch(clearAllEducations())
+                Swal.fire({
+                    title: "Навчання видалені!",
+                    text: "Ви видалили всі навчання.",
+                    icon: "success"
+                });
+            }
+          });
     }
 
     return(
@@ -31,6 +50,5 @@ export default function EducationsGrid({educations}){
                 ))}
             </div>
         </>
-        
     )
 }

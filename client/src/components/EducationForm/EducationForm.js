@@ -6,6 +6,9 @@ import FilterInput from "../FilterInput/FilterInput"
 import { useSelector } from "react-redux";
 import { selectVisibleEmployees } from "../../redux/employees/selectors";
 import { useNavigate } from "react-router-dom"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2'
 
 export default function EducationForm(){
 
@@ -29,21 +32,43 @@ export default function EducationForm(){
         });
     };
 
+    const isFormValid = (form) => {
+        return (
+            form.elements.title.value.length !== 0 &&
+            form.elements.instructor.value.length !== 0 &&
+            form.elements.date.value.length !== 0 &&
+            form.elements.startTime.value.length !== 0 &&
+            form.elements.endTime.value.length !== 0 &&
+            selectedEmployees.length !== 0
+        );
+    };
+    
+    const notify = () => toast.error("Заповніть всі поля і виберіть працівників!", {
+        autoClose: 3000
+    });
+
     const handleFormSubmit = ev => {
         ev.preventDefault()
-        if(selectedEmployees.length === 0) return
         const form = ev.currentTarget
-        dispatch(addEducation({
-            title: form.elements.title.value,
-            instructor: form.elements.instructor.value,
-            date: form.elements.date.value,
-            materials: form.elements.materials.value,
-            startTime: form.elements.startTime.value,
-            endTime: form.elements.endTime.value,
-            employees: selectedEmployees,
-        }))
-        form.reset()
-        navigate('/educations')
+        if(isFormValid(form)){
+            dispatch(addEducation({
+                title: form.elements.title.value,
+                instructor: form.elements.instructor.value,
+                date: form.elements.date.value,
+                materials: form.elements.materials.value,
+                startTime: form.elements.startTime.value,
+                endTime: form.elements.endTime.value,
+                employees: selectedEmployees,
+            }))
+            form.reset()
+            navigate('/educations')
+            Swal.fire({
+                icon: "success",
+                text: "Ви успішно додали навчання!"
+            })
+        }else{
+            notify()
+        }
     }
 
     return(
@@ -53,22 +78,22 @@ export default function EducationForm(){
                     <h2 className={css.title}>Додати навчання</h2>
                     <div>
                         <label className={css.label}>Назва
-                            <input required={true} className={css.input} name="title" />
+                            <input className={css.input} name="title" />
                         </label>
                         <label className={css.label}>Хто проводить
-                            <input required={true} className={css.input} name="instructor" />
+                            <input className={css.input} name="instructor" />
                         </label>
                         <label className={css.label}>Дата
-                            <input required={true} className={css.input} name="date" />
+                            <input className={css.input} name="date" />
                         </label>
                         <label className={css.label}>Додаткові матеріали
                             <textarea className={css.textarea} name="materials" />
                         </label>
                         <label className={css.label}>Початок
-                            <input required={true} className={css.input} name="startTime" />
+                            <input className={css.input} name="startTime" />
                         </label>
                         <label className={css.label}>Кінець
-                            <input required={true} className={css.input} name="endTime" />
+                            <input className={css.input} name="endTime" />
                         </label>
                         <div>
                             <button className={`${css.button} ${isOpen ? css.isOpen : ""}`} onClick={handleButtonClick} type="button">
@@ -147,6 +172,7 @@ export default function EducationForm(){
                     </div>
                 </form>
             </div>
+            <ToastContainer position="top-right" />
         </>
     )
 }
