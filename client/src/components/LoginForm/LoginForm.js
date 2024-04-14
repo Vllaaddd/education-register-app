@@ -1,13 +1,10 @@
 import { login } from "../../redux/auth/operations"
 import css from "./LoginForm.module.css"
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function LoginForm(){
-
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const notify = () => toast.error("Заповніть всі поля!", {
@@ -24,7 +21,6 @@ export default function LoginForm(){
                 password: form.elements.password.value,
             }))
             form.reset()
-            navigate('/')
         }else{
             notify()
         }

@@ -13,6 +13,9 @@ export const login = createAsyncThunk('auth/login', async (body, thunkAPI) => {
     try {
         const res = await axios.post(`http://localhost:5000/auth/login`, body)
         setAuthHeader(res.data.token);
+        if(res.data.redirectTo){
+            window.location.href = res.data.redirectTo
+        }
         return res.data;
     } catch (error) {
         throw new Error(error)

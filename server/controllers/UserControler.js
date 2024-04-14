@@ -29,6 +29,7 @@ export const login = async (req, res) => {
         res.cookie('access_token', token, { httpOnly: true, expires: expirationDate }).status(200).json({
             user: rest,
             token,
+            redirectTo: '/'
         })
 
     } catch (error) {
