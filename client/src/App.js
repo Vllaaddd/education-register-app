@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useEffect } from "react";
 import { getAllEmployees } from "./redux/employees/operations";
 import { getAllEducations } from "./redux/educations/operations";
+import { errorUpdate } from "./redux/auth/operations";
 
 export default function App() {
 
@@ -13,6 +14,10 @@ export default function App() {
     dispatch(getAllEmployees())
     dispatch(getAllEducations())
   }, [dispatch])
+
+  useEffect(() => {
+    dispatch(errorUpdate())
+  }, [])
 
   return (
     <div className="App">

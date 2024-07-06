@@ -5,7 +5,7 @@ export const importAll = async (req, res) => {
   try {
     const sheetsId = req.params.sheetsId;
     const sheetTitle = 'Sheet1';
-    const sheetRange = 'A2:N1000';
+    const sheetRange = 'A2:N2000';
     const fullUrl = 'https://docs.google.com/spreadsheets/d/' + sheetsId + '/gviz/tq?sheet=' + sheetTitle + '&range=' + sheetRange;
     
     const response = await fetch(fullUrl);
@@ -24,6 +24,11 @@ export const importAll = async (req, res) => {
       const schedule = employee.c[7].v;
       const email = employee.c[12].v;
       const leader = employee.c[13].v;
+
+      const existingEmployee = await EmployeeModel.findOne({ email });
+      if (existingEmployee) {
+        continue;
+      }
       
       const password = 'password' // для тесту
       const salt = await bcrypt.genSalt(10);

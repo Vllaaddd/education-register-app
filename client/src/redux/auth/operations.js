@@ -31,3 +31,11 @@ export const logout = createAsyncThunk('auth/logout', async (thunkAPI) => {
         thunkAPI.rejectWithValue(error.message);
     }
 })
+
+export const errorUpdate = createAsyncThunk('auth/errorUpdate', async (_, thunkAPI) => {
+    try {
+        return {success: true}
+    } catch (error) {
+        throw new Error(error)
+    }
+})

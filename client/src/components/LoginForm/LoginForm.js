@@ -1,11 +1,16 @@
 import { login } from "../../redux/auth/operations"
 import css from "./LoginForm.module.css"
-import { useDispatch } from "react-redux"
-import { ToastContainer, toast } from 'react-toastify';
+import { useDispatch, useSelector } from "react-redux"
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import { selectError } from "../../redux/auth/selectors"
+import { useEffect } from "react";
 
 export default function LoginForm(){
     const dispatch = useDispatch()
+    const error = useSelector(selectError)
 
     const notify = () => toast.error("Заповніть всі поля!", {
         autoClose: 3000
@@ -26,6 +31,24 @@ export default function LoginForm(){
         }
     }
 
+    const errorNotify = () => toast.error('Неправильний пароль або email!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+    });
+
+    useEffect(() => {
+        if(error !== null){
+            errorNotify()
+        }
+    }, [error])
+
     return(
         <>
             <div className={css.wrapper}>
@@ -40,6 +63,14 @@ export default function LoginForm(){
                     </label>
                     
                     <button className={css.button} type="submit">Увійти</button>
+                    <GoogleLogin 
+                        onSuccess={res => {
+                            const data = jwtDecode(res.credential)
+                            dispatch(login({
+                                email: data.email,
+                            })) 
+                        }}
+                    />
                 </form>
             </div>
             <ToastContainer position="top-right" />

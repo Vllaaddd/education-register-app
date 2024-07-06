@@ -14,10 +14,12 @@ export const login = async (req, res) => {
             })
         }
 
-        const dbPassword = user.password;
-        const validPassword = bcrypt.compareSync(password, dbPassword)
-        if(!validPassword){
-            return res.status(400).json({error: "Невірний пароль або email"})
+        if(password){
+            const dbPassword = user.password;
+            const validPassword = bcrypt.compareSync(password, dbPassword)
+            if(!validPassword){
+                return res.status(400).json({error: "Невірний пароль або email"})
+            }
         }
 
         const token = jwt.sign({ id: user._id }, 'secret123')
@@ -42,4 +44,4 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
     res.clearCookie('access_token').status(200).json('Вихід успішний');
-  };
+};
