@@ -15,7 +15,7 @@ export const selectVisibleEmployees = createSelector(
     (employees, filter) => {
       if(employees){
         return employees.filter(
-          employee => employee?.fullName && employee?.fullName.includes(filter)
+          employee => employee?.fullName.toLowerCase() && employee?.fullName.toLowerCase().includes(filter)
         );
       }
     }

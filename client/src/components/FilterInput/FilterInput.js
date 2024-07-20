@@ -7,7 +7,7 @@ export default function FilterInput(){
     const dispatch = useDispatch()
 
     const handleInputChange = (ev) => {
-        const name = ev.target.value
+        const name = ev.target.value.toLowerCase()
         dispatch(filterUpdate(name))
     }
 
