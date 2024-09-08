@@ -4,6 +4,8 @@ import EmployeesGrid from "../components/EmployeesGrid/EmployeesGrid";
 import Center from "../components/Center/Center"
 import Spinner from "../components/Spinner/Spinner";
 import FilterInput from "../components/FilterInput/FilterInput"
+import FilterContainer from "../components/FilterContainer/FilterContainer";
+import Filter from "../components/Filter/Filter";
 
 export default function Employees(){
 
@@ -13,7 +15,10 @@ export default function Employees(){
     return(
         <>
             <Center>
-                <FilterInput />
+                <FilterContainer>
+                    <FilterInput />
+                    <Filter />
+                </FilterContainer>
                 <div>
                     {!isLoading && employees.length === 0 && (
                         <h2 align="center">Немає працівників</h2>

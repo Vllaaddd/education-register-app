@@ -1,0 +1,83 @@
+.container{
+    min-width: 200px;
+    padding: 12px 24px;
+    border: none;
+    outline: none; 
+    background: #fff;
+    cursor: pointer;
+}
+
+.containerOpen{
+    border-radius: 23px;
+}
+
+.containerClosed{
+    border-radius: 50px;
+}
+
+.filterWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.title{
+    font-family: Nunito, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.svg{
+    width: 20px;
+    height: 20px;
+}
+
+.open{
+    display: block;
+}
+
+.closed{
+    display: none;
+}
+
+.filterContent {
+    background-color: #f9f9f9; /* Світлий фон */
+    padding: 16px 20px; /* Збільшені відступи всередині блоку */
+    border-radius: 10px; /* Округлення кутів */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Більша тінь */
+    margin: 15px 0; /* Збільшені відступи зовні */
+    font-family: Nunito, sans-serif; /* Шрифт */
+    font-size: 16px; /* Більший розмір шрифту */
+    color: #333; /* Колір тексту */
+}
+
+.filterContentTitle {
+    font-weight: 600; /* Жирність шрифту */
+    margin-bottom: 12px; /* Збільшений відступ знизу */
+}
+
+.filterContentWrapper {
+    padding: 10px; /* Внутрішні відступи */
+    background: #fff; /* Білий фон */
+    border-radius: 10px; /* Округлення кутів */
+}
+
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.checkboxWrapper:last-child {
+    margin-bottom: 0;
+}
+
+.checkboxWrapper input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.checkboxWrapper label {
+    cursor: pointer;
+}
