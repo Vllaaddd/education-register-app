@@ -1,12 +1,14 @@
 import css from "./Employee.module.css"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { useTranslation } from "react-i18next"
 
 export default function Employee({data}){
 
     const [educations, setEducations] = useState([])
     const [completedEducations, setCompletedEducations] = useState([])
     const [unCompletedEducations, setUnCompletedEducations] = useState([])
+    const { t } = useTranslation()
 
     const { fullName, allEducations, _id } = data
 
@@ -49,19 +51,19 @@ export default function Employee({data}){
         <div className={css.wrapper}>
             <h2 className={css.title}>{fullName}</h2>
             {educations.length === 0 && (
-                <p>Немає навчань</p>
+                <p>{t("noEducations")}</p>
             )}
             {unCompletedEducations && unCompletedEducations.length !== 0 && (
                 <>
-                    <p>Активні навчання: </p>
+                    <p>{t("activeEducations")}: </p>
                     <table className={css.table}>
                       <thead>
                         <tr>
-                          <th>Назва навчання</th>
-                          <th>Хто проводив</th>
-                          <th>Дата</th>
-                          <th>Початок</th>
-                          <th>Кінець</th>
+                          <th>{t("educationTitle")}</th>
+                          <th>{t("whoInstruct")}</th>
+                          <th>{t("date")}</th>
+                          <th>{t("start")}</th>
+                          <th>{t("end")}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -80,15 +82,15 @@ export default function Employee({data}){
             )}
             {completedEducations && completedEducations.length !== 0 && (
                 <>
-                    <p>Пройдені навчання: </p>
+                    <p>{t("completedEducations")}: </p>
                     <table className={css.table}>
                       <thead>
                         <tr>
-                          <th>Назва навчання</th>
-                          <th>Хто проводив</th>
-                          <th>Дата</th>
-                          <th>Початок</th>
-                          <th>Кінець</th>
+                          <th>{t("educationTitle")}</th>
+                          <th>{t("whoInstruct")}</th>
+                          <th>{t("date")}</th>
+                          <th>{t("start")}</th>
+                          <th>{t("end")}</th>
                         </tr>
                       </thead>
                       <tbody>

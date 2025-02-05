@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2'
+import { useTranslation } from "react-i18next";
 
 export default function EducationForm(){
 
@@ -17,6 +18,7 @@ export default function EducationForm(){
     const [isOpen, setIsOpen] = useState(false)
     const [selectedEmployees, setSelectedEmployees] = useState([]);
     const employees = useSelector(selectVisibleEmployees)
+    const { t } = useTranslation()
 
     const handleButtonClick = () => {
         setIsOpen(!isOpen);
@@ -75,30 +77,30 @@ export default function EducationForm(){
         <>
             <div align="center">
                 <form className={css.form} onSubmit={handleFormSubmit}>
-                    <h2 className={css.title}>Додати навчання</h2>
+                    <h2 className={css.title}>{t("addEducation")}</h2>
                     <div>
-                        <label className={css.label}>Назва
+                        <label className={css.label}>{t("title")}
                             <input className={css.input} name="title" />
                         </label>
-                        <label className={css.label}>Хто проводить
+                        <label className={css.label}>{t("whoInstruct")}
                             <input className={css.input} name="instructor" />
                         </label>
-                        <label className={css.label}>Дата
+                        <label className={css.label}>{t("date")}
                             <input className={css.input} name="date" />
                         </label>
-                        <label className={css.label}>Додаткові матеріали
+                        <label className={css.label}>{t("additionalMaterials")}
                             <textarea className={css.textarea} name="materials" />
                         </label>
-                        <label className={css.label}>Початок
+                        <label className={css.label}>{t("start")}
                             <input className={css.input} name="startTime" />
                         </label>
-                        <label className={css.label}>Кінець
+                        <label className={css.label}>{t("end")}
                             <input className={css.input} name="endTime" />
                         </label>
                         <div>
                             <button className={`${css.button} ${isOpen ? css.isOpen : ""}`} onClick={handleButtonClick} type="button">
                                 <span>
-                                    Вибрати працівників
+                                    {t("chooseEmployees")}
                                 </span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -165,10 +167,10 @@ export default function EducationForm(){
                                         </li>
                                     ))}
                                 </ul>
-                                <button type="button" className={css.chooseButton} onClick={handleButtonClick}>Вибрати</button>
+                                <button type="button" className={css.chooseButton} onClick={handleButtonClick}>{t("choose")}</button>
                             </div>
                         </div>
-                        <button className={css.chooseButton} type="submit">Додати</button>
+                        <button className={css.chooseButton} type="submit">{t("add")}</button>
                     </div>
                 </form>
             </div>

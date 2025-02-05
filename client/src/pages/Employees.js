@@ -6,11 +6,13 @@ import Spinner from "../components/Spinner/Spinner";
 import FilterInput from "../components/FilterInput/FilterInput"
 import FilterContainer from "../components/FilterContainer/FilterContainer";
 import Filter from "../components/Filter/Filter";
+import { useTranslation } from "react-i18next";
 
 export default function Employees(){
 
     const employees = useSelector(selectVisibleEmployees)
     const isLoading = useSelector(selectIsLoading)
+    const { t } = useTranslation()
 
     return(
         <>
@@ -21,7 +23,7 @@ export default function Employees(){
                 </FilterContainer>
                 <div>
                     {!isLoading && employees.length === 0 && (
-                        <h2 align="center">Немає працівників</h2>
+                        <h2 align="center">{t("noEmployees")}</h2>
                     )}
                 </div>
                 <div>

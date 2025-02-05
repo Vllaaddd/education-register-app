@@ -7,10 +7,12 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { selectError } from "../../redux/auth/selectors"
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function LoginForm(){
     const dispatch = useDispatch()
     const error = useSelector(selectError)
+    const { t } = useTranslation()
 
     const notify = () => toast.error("Заповніть всі поля!", {
         autoClose: 3000
@@ -31,7 +33,7 @@ export default function LoginForm(){
         }
     }
 
-    const errorNotify = () => toast.error('Неправильний пароль або email!', {
+    const errorNotify = () => toast.error(t("wrongEmailOrPassword"), {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -53,16 +55,16 @@ export default function LoginForm(){
         <>
             <div className={css.wrapper}>
                 <form className={css.form} onSubmit={handleFormSubmit}>
-                    <h2 className={css.title}>Вхід</h2>
+                    <h2 className={css.title}>{t("login")}</h2>
                     
-                    <label className={css.label}>Email
+                    <label className={css.label}>{t("email")}
                         <input name="email" className={css.input} />
                     </label>
-                    <label className={css.label}>Password
+                    <label className={css.label}>{t("password")}
                         <input name="password" className={css.input} type="password" />
                     </label>
                     
-                    <button className={css.button} type="submit">Увійти</button>
+                    <button className={css.button} type="submit">{t("logIn")}</button>
                     <GoogleLogin 
                         onSuccess={res => {
                             const data = jwtDecode(res.credential)

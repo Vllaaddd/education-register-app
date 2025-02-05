@@ -1,0 +1,14 @@
+.container{
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+.svg{
+    width: 20px;
+    height:20px;
+}

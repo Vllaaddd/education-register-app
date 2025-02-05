@@ -4,28 +4,30 @@ import { Link } from "react-router-dom"
 import { selectIsAdmin } from "../../redux/auth/selectors"
 import { deleteAll, deleteOneEmployee } from "../../redux/employees/operations"
 import Swal from 'sweetalert2'
+import { useTranslation } from "react-i18next"
 
 export default function EmployeesGrid({employees}){
 
     const isAdmin = useSelector(selectIsAdmin)
     const dispatch = useDispatch()
+    const { t } = useTranslation()
 
     const handleButtonClick = () => {
         Swal.fire({
-            title: "Ви впевнені?",
-            text: "Ви точно хочете видалити працівників?",
+            title: t("areYouSure"),
+            text: t("doYouWantToDeleteEmployees"),
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#02a815",
             cancelButtonColor: "#d33",
-            cancelButtonText: "Скасувати",
-            confirmButtonText: "Так, видалити!"
+            cancelButtonText: t("cancel"),
+            confirmButtonText: t("delete")
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(deleteAll())
                 Swal.fire({
-                    title: "Працівники видалені!",
-                    text: "Ви видалили всіх працівників.",
+                    title: t("employeesDeleted"),
+                    text: t("youDeletedAllEmployees"),
                     icon: "success"
                 });
             }
@@ -34,20 +36,20 @@ export default function EmployeesGrid({employees}){
 
     const handleDelete = (employeId, employeeName) => {
         Swal.fire({
-            title: "Ви впевнені?",
-            text: `Ви точно хочете видалити ${employeeName} ?`,
+            title: t("areYouSure"),
+            text: `${t("douYouWantTODelete")} ${employeeName} ?`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#02a815",
             cancelButtonColor: "#d33",
-            cancelButtonText: "Скасувати",
-            confirmButtonText: "Так, видалити!"
+            cancelButtonText: t("cancel"),
+            confirmButtonText: t("delete")
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(deleteOneEmployee(employeId))
                 Swal.fire({
-                    title: "Працівник видалений!",
-                    text: `Ви видалили ${employeeName} .`,
+                    title: t("employeeDeleted"),
+                    text: `${t("youDeleted")} ${employeeName} .`,
                     icon: "success"
                 });
             }
@@ -63,17 +65,17 @@ export default function EmployeesGrid({employees}){
                     </svg>
                 </button>
             )}
-            <h2 className={css.title}>Всі працівники</h2>
+            <h2 className={css.title}>{t("allEmployees")}</h2>
             {employees && employees.length > 0 && (
                 <table className={css.table}>
                     <thead>
                         <tr>
-                            <th>Ім'я</th>
-                            <th>Професія</th>
-                            <th>Статус</th>
-                            <th>Графік роботи</th>
-                            <th>Кількість навчань</th>
-                            <th colSpan="3">Детальна інформація</th>
+                            <th>{t("name")}</th>
+                            <th>{t("profession")}</th>
+                            <th>{t("status")}</th>
+                            <th>{t("schedule")}</th>
+                            <th>{t("educationsAmount")}</th>
+                            <th colSpan="3">{t("detailedInformation")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,7 +86,7 @@ export default function EmployeesGrid({employees}){
                                 <td>{employee.status}</td>
                                 <td>{employee.schedule}</td>
                                 <td>{employee.allEducations.length}</td>
-                                <td><Link className={css.link} to={`/employees/${employee._id}`}>Переглянути більше</Link></td>
+                                <td><Link className={css.link} to={`/employees/${employee._id}`}>{t("seeMore")}</Link></td>
                                 {isAdmin && (
                                     <td>
                                         <div className={css.wrapper}>

@@ -5,29 +5,31 @@ import { selectIsAdmin } from "../../redux/auth/selectors"
 import { deleteAll } from "../../redux/educations/operations"
 import { clearAllEducations } from "../../redux/employees/operations"
 import Swal from 'sweetalert2'
+import { useTranslation } from "react-i18next"
 
 export default function EducationsGrid({educations}){
 
     const isAdmin = useSelector(selectIsAdmin)
     const dispatch = useDispatch()
+    const { t } = useTranslation()
 
     const handleButtonClick = () => {
         Swal.fire({
-            title: "Ви впевнені?",
-            text: "Ви точно хочете видалити навчання?",
+            title: t("areYouSure"),
+            text: t("doYouWantToDeleteEducation"),
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#02a815",
             cancelButtonColor: "#d33",
-            cancelButtonText: "Скасувати",
-            confirmButtonText: "Так, видалити!"
+            cancelButtonText: t("cancel"),
+            confirmButtonText: t("delete")
           }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(deleteAll())
                 dispatch(clearAllEducations())
                 Swal.fire({
-                    title: "Навчання видалені!",
-                    text: "Ви видалили всі навчання.",
+                    title: t("educationsDeleted"),
+                    text: t("youDeletedAllEducations"),
                     icon: "success"
                 });
             }
@@ -43,7 +45,7 @@ export default function EducationsGrid({educations}){
                     </svg>
                 </button>
             )}
-            <h2 className={css.title}>Всі навчання</h2>
+            <h2 className={css.title}>{t("allEducations")}</h2>
             <div className={css.wrapper}>
                 {educations.length > 0 && educations.map((education, i) => (
                     <Education key={i} {...education} />

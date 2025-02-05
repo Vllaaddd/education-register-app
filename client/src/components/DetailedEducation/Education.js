@@ -1,11 +1,13 @@
 import css from "./Education.module.css"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { useTranslation } from "react-i18next"
 
 export default function Education({data}){
 
     const [employeesWithCompletedEducation, setEmployeesWithCompletedEducation] = useState([])
     const [employeesWithUncompletedEducation, setEmployeesWithUncompletedEducation] = useState([])
+    const { t } = useTranslation()
 
     const { title, date, materials, instructor, startTime, endTime } = data
 
@@ -93,28 +95,28 @@ export default function Education({data}){
 
     return(
         <div className={css.wrapper}>
-            <p>Назва навчання: {title}</p>
-            <p>Проводив навчання: {instructor}</p>
-            <p>Дата: {date}</p>
+            <p>{t("educationTitle")}: {title}</p>
+            <p>{t("instructor")}: {instructor}</p>
+            <p>{t("date")}: {date}</p>
             {materials && (
               <div className={css.materials}>
-                <p>Додаткові матеріали: </p>
+                <p>{t("additionalMaterials")}: </p>
                 <div>{materials}</div>
               </div>
             )}
-            <p>Початок: {startTime}</p>
-            <p>Кінець: {endTime}</p>
+            <p>{t("start")}: {startTime}</p>
+            <p>{t("end")}: {endTime}</p>
             {employeesWithCompletedEducation.length === 0 && employeesIdsWithUncompletedEducation.length === 0 && (
-                <p>Жоден працівник не пройшов це навчання</p>
+                <p>{t("employeesDidntComplete")}</p>
             )}
             {employeesWithUncompletedEducation.length !== 0 && (
-                <ul className={css.list}>Працівники які проходять це навчання:
+                <ul className={css.list}>{t("employeesCompliting")}:
                     <table className={css.table}>
                       <thead>
                         <tr>
-                            <th>Ім'я</th>
-                            <th>Професія</th>
-                            <th>Графік роботи</th>
+                            <th>{t("name")}</th>
+                            <th>{t("proffesion")}</th>
+                            <th>{t("schedule")}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -134,9 +136,9 @@ export default function Education({data}){
                     <table className={css.table}>
                       <thead>
                         <tr>
-                            <th>Ім'я</th>
-                            <th>Професія</th>
-                            <th>Графік роботи</th>
+                            <th>{t("name")}</th>
+                            <th>{t("proffesion")}</th>
+                            <th>{t("schedule")}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -152,7 +154,7 @@ export default function Education({data}){
                 </ul>
             )}
             {employeesWithCompletedEducation.length !== 0 && employeesWithUncompletedEducation.length === 0 && (
-              <button className={css.button} type="button" onClick={() => generateWordDocument()}>Створити документ</button>
+              <button className={css.button} type="button" onClick={() => generateWordDocument()}>{t("createDocument")}</button>
             )}
         </div>
     )

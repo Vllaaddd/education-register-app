@@ -5,6 +5,7 @@ import { filterReducer } from "./filter/slice";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { authReducer } from "./auth/slice";
+import { languageReducer } from "./language/slice";
 
 const persistConfig = {
   key: 'auth',
@@ -25,6 +26,7 @@ export const store = configureStore({
     employees: employeeReducer,
     educations: educationReducer,
     filter: filterReducer,
+    language: languageReducer,
     auth: persistedAuthReducer,
   },
   middleware,

@@ -15,7 +15,7 @@
 }
 
 .profileWrapper{
-    margin-left: auto;
+    margin-left: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,4 +43,16 @@
 .title{
     margin-right: auto;
     color: #fff;
+}
+
+.langButton{
+    background-color: #fff;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 30px;
+    border-radius: 15px;
+    cursor: pointer;
 }

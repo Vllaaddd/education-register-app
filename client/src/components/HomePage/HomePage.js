@@ -4,11 +4,13 @@ import { selectIsAdmin, selectIsLoggedIn, selectUser } from "../../redux/auth/se
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { changeIsCompleted } from "../../redux/educations/operations"
+import { useTranslation } from "react-i18next"
 
 export default function HomePage(){
 
     const [educations, setEducations] = useState([])
     const dispatch = useDispatch()
+    const { t } = useTranslation()
 
     const isLoggedIn = useSelector(selectIsLoggedIn)
     const isAdmin = useSelector(selectIsAdmin)
@@ -49,11 +51,11 @@ export default function HomePage(){
     return(
         <>
             {!isLoggedIn && (
-              <h2 className={css.title}>Реєстр навчань</h2>
+              <h2 className={css.title}>{t("educationRegister")}</h2>
             )}
             {isLoggedIn && !isAdmin && (
                 <>
-                    <h2 className={css.title}>Мої навчання</h2>
+                    <h2 className={css.title}>{t("myEducations")}</h2>
                     <ul className={css.list}>
                         {educations && educations.length !== 0 && educations.map(education => {
                           const employee = education.employees.filter(employee => {
@@ -62,15 +64,15 @@ export default function HomePage(){
                           if (employee.length === 0) {
                             return (
                               <li key={education._id}>
-                                <p>Назва: {education.title}</p>
-                                <p>Інструктор: {education.instructor}</p>
-                                <p>Дата: {education.date}</p>
-                                <p>Початок: {education.startTime}</p>
-                                <p>Кінець: {education.endTime}</p>
+                                <p>{t("title")}: {education.title}</p>
+                                <p>{t("whoInstruct")}: {education.instructor}</p>
+                                <p>{t("date")}: {education.date}</p>
+                                <p>{t("start")}: {education.startTime}</p>
+                                <p>{t("end")}: {education.endTime}</p>
                                 {education.materials && (
-                                    <p>Додаткові матеріали: {education.materials}</p>
+                                    <p>{t("additionalMaterials")}: {education.materials}</p>
                                 )}
-                                <button onClick={() => handleButtonClick(education._id)} className={css.button} type="button">Відмітити як пройдене</button>
+                                <button onClick={() => handleButtonClick(education._id)} className={css.button} type="button">{t("checkAsCompleted")}</button>
                               </li>
                             )
                           }
